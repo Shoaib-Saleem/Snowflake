@@ -1,0 +1,7 @@
+CREATE TABLE clone_employees CLONE employees;
+
+Select * 
+From clone_employees;
+
+Drop table back_to_the_future_test;
+Undrop table back_to_the_future_test;

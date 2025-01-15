@@ -1,0 +1,26 @@
+create or replace table time_travel_test
+as 
+select 1 a, 2 b, 3 c
+union all 
+select 4,5,6;
+
+select *
+from time_travel_test;
+
+set good_data_timestamp = current_timestamp();
+
+alter table time_travel_test
+drop column c;
+
+select *
+from time_travel_test
+at(timestamp=>$good_data_timestamp);
+
+create table back_to_the_future_test
+clone time_travel_test 
+at(timestamp=>$good_data_timestamp);
+;
+
+select *
+from back_to_the_future_test;
+
