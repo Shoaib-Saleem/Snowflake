@@ -1,26 +1,27 @@
-create or replace table time_travel_test
-as 
-select 1 a, 2 b, 3 c
-union all 
-select 4,5,6;
+Create or Replace Table time_travel_test
+As 
+Select 1 a, 2 b, 3 c
+Union All 
+Select 4,5,6;
 
-select *
-from time_travel_test;
+Select *
+From time_travel_test;
 
-set good_data_timestamp = current_timestamp();
+Set good_data_timestamp = current_timestamp();
 
-alter table time_travel_test
-drop column c;
+Alter Table time_travel_test
+Drop Column c;
 
-select *
-from time_travel_test
-at(timestamp=>$good_data_timestamp);
+Truncate Table time_travel_test;
 
-create table back_to_the_future_test
-clone time_travel_test 
-at(timestamp=>$good_data_timestamp);
-;
+Select *
+From time_travel_test
+AT(timestamp=>$good_data_timestamp);
 
-select *
-from back_to_the_future_test;
+Create Table back_to_the_future_test
+Clone time_travel_test 
+AT(timestamp=>$good_data_timestamp);
+
+Select *
+From back_to_the_future_test;
 
